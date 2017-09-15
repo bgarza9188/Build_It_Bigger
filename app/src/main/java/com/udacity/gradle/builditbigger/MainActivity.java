@@ -13,21 +13,22 @@ import android.widget.Toast;
 import com.example.JokeFactory;
 import com.example.jokelibrary.JokeActivity;
 
+public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
 
-public class MainActivity extends AppCompatActivity {
+    EndpointsAsyncTask epTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        epTask = new EndpointsAsyncTask();
+        epTask.listener = this;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
         return true;
     }
 
@@ -47,12 +48,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        JokeFactory jf = new JokeFactory();
-        Intent jokeIntent = new Intent(this, JokeActivity.class);
-        jokeIntent.putExtra("joke", jf.getJoke());
-        startActivity(jokeIntent);
-        //Toast.makeText(this, jf.getJoke(), Toast.LENGTH_SHORT).show();
+//        JokeFactory jf = new JokeFactory();
+//        Intent jokeIntent = new Intent(this, JokeActivity.class);
+//        jokeIntent.putExtra("joke", jf.getJoke());
+//        startActivity(jokeIntent);
+        //new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Mark"));
+        epTask.execute(new Pair<Context, String>(this, "Mark"));
     }
 
-
+    @Override
+    public void onTaskCompleted(String result) {
+        Intent jokeIntent = new Intent(this, JokeActivity.class);
+        jokeIntent.putExtra("joke", result);
+        startActivity(jokeIntent);
+    }
 }

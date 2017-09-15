@@ -20,6 +20,7 @@ import java.io.IOException;
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
+    public OnTaskCompleted listener = null;
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -53,6 +54,6 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
 
     @Override
     protected void onPostExecute(String result) {
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        listener.onTaskCompleted(result);
     }
 }
