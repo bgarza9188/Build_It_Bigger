@@ -8,9 +8,7 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.JokeFactory;
 import com.example.jokelibrary.JokeActivity;
 
 public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
@@ -48,12 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
     }
 
     public void tellJoke(View view) {
-//        JokeFactory jf = new JokeFactory();
-//        Intent jokeIntent = new Intent(this, JokeActivity.class);
-//        jokeIntent.putExtra("joke", jf.getJoke());
-//        startActivity(jokeIntent);
-        //new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Mark"));
-        epTask.execute(new Pair<Context, String>(this, "Mark"));
+        epTask.execute(new Pair<Context, String>(this, getResources().getString(R.string.mark)));
     }
 
     @Override
